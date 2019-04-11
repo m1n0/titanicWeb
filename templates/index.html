@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Would You Survive the Titanic?</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+  <link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v3.0.1/dist/mini-default.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <main class="wrapper">
+    <div class="container">
+      <h1 class="title">Would You Survive the Titanic?</h1>
+
+      {% block content %}
+        {% if prediction %}
+          {{ prediction }}
+        {% endif %}
+
+        <form method=post>
+          <div class="row">
+            {% for field, errors in form.errors.items() %}
+              <div class="alert alert-error col-md-12 col-lg-8 col-lg-offset-2">
+                  {{ form[field].label }}: {{ ', '.join(errors) }}
+              </div>
+            {% endfor %}
+
+            <div class="col-md-12 col-lg-8 col-lg-offset-2">
+              <fieldset>
+                {% for field in form %}
+                  {% if field.type != 'SubmitField' %}
+                    <div class="row responsive-label"><div class="col-sm-12">
+                      {{ field.label() }}
+                      {{ field() }}
+                    </div></div>
+                  {% endif %}
+                {% endfor %}
+              </fieldset>
+
+              {{ form.submit(class_ = "primary") }}
+            </div>
+          </div>
+        </form>
+      {% endblock %}
+
+    </div>
+  </main>
+</body>
+</html>

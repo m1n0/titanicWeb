@@ -2,11 +2,6 @@
     max-width: 80rem;
 }
 
-.alert {
-  display: block;
-  clear: both;
-}
-
 .prediction {
   font-size: 1.1em;
   text-align: center;
@@ -29,4 +24,14 @@
 h1.title {
   text-align: center;
   margin: 60px auto 30px auto;
+}
+
+.form-errors {
+  box-sizing: border-box;
+  padding: var(--universal-padding);
+}
+.form-errors .warning {
+  background-color: #ffca28;
+  margin: 5px 0 5px 0;
+  padding: 5px;
 }

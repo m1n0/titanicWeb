@@ -1,9 +1,12 @@
 import pickle
 import numpy as np
+import os
 
 class Predictor(object):
     def predict(self, sex, title, age, Pclass, cabin, SibSp, ParCh, fare, embarked):
-        with open("model/model.pkl", "rb") as f:
+        dirname = os.path.dirname(__file__)
+        filename = os.path.join(dirname, './model.pkl')
+        with open(filename, "rb") as f:
             model = pickle.load(f)
 
         probability = model.predict_proba(

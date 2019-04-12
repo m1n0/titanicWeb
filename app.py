@@ -2,7 +2,7 @@
 from form.titanic_form import TitanicForm
 # from gen_html import fit_model
 from flask import Flask, render_template, request
-from modules.predictor import Predictor
+from modules.prediction.predictor import Predictor
 # from modules import predictor
 
 app = Flask(__name__)

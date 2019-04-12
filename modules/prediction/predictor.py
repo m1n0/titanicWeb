@@ -4,17 +4,19 @@ import os
 from model.passenger_data import PassengerData
 
 class Predictor(object):
-    def predict(self, passenger_data: PassengerData):
+    @staticmethod
+    def predict(passenger_data: PassengerData):
         dirname = os.path.dirname(__file__)
         filename = os.path.join(dirname, './model.pkl')
         with open(filename, "rb") as f:
             model = pickle.load(f)
 
-        probability = model.predict_proba(self.__preprocess(passenger_data))[0, 1]
+        probability = model.predict_proba(Predictor.__preprocess(passenger_data))[0, 1]
 
         return probability
 
-    def __preprocess(self, passenger_data: PassengerData) -> list:
+    @staticmethod
+    def __preprocess(passenger_data: PassengerData) -> list:
         age = passenger_data.age
         sex = passenger_data.sex
         embarked = passenger_data.embarked

@@ -11,16 +11,25 @@ app = Flask(__name__)
 def home():
     form = TitanicForm(request.form)
     prediction = None
+    status = None
 
     if request.method == "POST" and form.validate():
         passengerData = PassengerDataBuilder.build_from_form_data(request.form)
-        prediction = Predictor.predict(passengerData)
+        prediction = int(Predictor.predict(passengerData) * 100)
+
+        if prediction > 70:
+            status = "green"
+        elif prediction > 40:
+            status = "yellow"
+        else:
+            status = "red"
 
     return render_template(
         "index.html",
         form = form,
-        prediction = prediction
+        prediction = prediction,
+        status = status
     )
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8888, debug=True)
+    app.run(host = "0.0.0.0", port = 8888, debug = True)

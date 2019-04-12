@@ -52,7 +52,7 @@ class TitanicForm(Form):
     )
 
     cabin = SelectField(
-        "Has cabin or not:",
+        "Has private cabin or not:",
         choices = [
             ("1", "Yes"),
             ("0", "No")
@@ -63,7 +63,7 @@ class TitanicForm(Form):
     )
 
     SibSp = IntegerField(
-        "Number of siblings and spouses aboard:",
+        "Number of siblings and/or spouses aboard:",
         default = 0,
         validators = [
             validators.InputRequired(),
@@ -76,7 +76,7 @@ class TitanicForm(Form):
     )
 
     ParCh = IntegerField(
-        "Number of parents and children aboard:",
+        "Number of parents and/or children aboard:",
         default = 0,
         validators = [
             validators.InputRequired(),
@@ -89,7 +89,7 @@ class TitanicForm(Form):
     )
 
     fare = DecimalField(
-        "Passenger Fare:",
+        "Passenger Fare ($):",
         default = 33,
         places = 1,
         validators = [

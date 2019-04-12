@@ -13,15 +13,21 @@
 <body>
   <main class="wrapper">
     <div class="container">
-      <h1 class="title">Would You Survive the Titanic?</h1>
+      <div class="row">
+        <h1 class="title">Would You Survive the Titanic?</h1>
+      </div>
 
       {% block content %}
-        {% if prediction %}
-          {{ prediction }}
-        {% endif %}
-
         <form method=post>
           <div class="row">
+            {% if prediction %}
+              <div class="col-sm-12 col-lg-8 col-lg-offset-2">
+                <div class="prediction {{ status }}">
+                  You would have a {{ prediction }}% chance of surviving Titanic!
+                </div>
+              </div>
+            {% endif %}
+
             {% for field, errors in form.errors.items() %}
               <div class="alert alert-error col-md-12 col-lg-8 col-lg-offset-2">
                   {{ form[field].label }}: {{ ', '.join(errors) }}

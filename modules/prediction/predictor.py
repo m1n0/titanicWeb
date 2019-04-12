@@ -1,24 +1,28 @@
 import pickle
 import numpy as np
 import os
+from model.passenger_data import PassengerData
 
 class Predictor(object):
-    def predict(self, sex, title, age, Pclass, cabin, SibSp, ParCh, fare, embarked):
+    def predict(self, passenger_data: PassengerData):
         dirname = os.path.dirname(__file__)
         filename = os.path.join(dirname, './model.pkl')
         with open(filename, "rb") as f:
             model = pickle.load(f)
 
-        probability = model.predict_proba(
-            self.__preprocess(sex, title, age, Pclass, cabin, SibSp, ParCh, fare, embarked)
-        )[0, 1]
+        probability = model.predict_proba(self.__preprocess(passenger_data))[0, 1]
 
         return probability
 
-    @staticmethod
-    def __preprocess(sex, title, age, Pclass, cabin, SibSp, ParCh, fare, embarked) -> list:
+    def __preprocess(self, passenger_data: PassengerData) -> list:
+        age = passenger_data.age
+        sex = passenger_data.sex
+        embarked = passenger_data.embarked
+        Pclass = passenger_data.Pclass
+        title = passenger_data.title
+
         x = {
-            "Fare": fare,
+            "Fare": passenger_data.fare,
             "AgeCategory_Infant": int(age <= 5),
             "AgeCategory_Child": int(age > 5 and age <= 12),
             "AgeCategory_Teenager": int(age > 12 and age <= 18),
@@ -33,7 +37,7 @@ class Predictor(object):
             "Pclass_1": int(Pclass == 1),
             "Pclass_2": int(Pclass == 2),
             "Pclass_3": int(Pclass == 3),
-            "FamilySize": SibSp + ParCh + 1,
+            "FamilySize": passenger_data.SibSp + passenger_data.ParCh + 1,
             "Title_Mr": int(title == "Mr"),
             "Title_Mrs": int(title == "Mrs"),
             "Title_Miss": int(title == "Miss"),

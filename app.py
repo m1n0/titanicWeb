@@ -1,9 +1,8 @@
 
 from form.titanic_form import TitanicForm
-# from gen_html import fit_model
 from flask import Flask, render_template, request
 from modules.prediction.predictor import Predictor
-# from modules import predictor
+from builder.passenger_data_builder import PassengerDataBuilder
 
 app = Flask(__name__)
 
@@ -11,42 +10,18 @@ app = Flask(__name__)
 @app.route("/", methods=["GET", "POST"])
 def home():
     form = TitanicForm(request.form)
+    prediction = None
 
     if request.method == "POST" and form.validate():
-        sex = int(request.form["sex"])
-        title = request.form["title"]
-        age = float(request.form["age"])
-        Pclass = int(request.form["Pclass"])
-        cabin = int(request.form["Pclass"])
-        SibSp = int(request.form["SibSp"])
-        ParCh = int(request.form["ParCh"])
-        fare = float(request.form["fare"])
-        embarked = request.form["embarked"]
-
+        passengerData = PassengerDataBuilder.build_from_form_data(request.form)
         predictor = Predictor()
-        prediction = predictor.predict(
-            sex = sex,
-            title = title,
-            age = age,
-            Pclass = Pclass,
-            cabin = cabin,
-            SibSp = SibSp,
-            ParCh = ParCh,
-            fare = fare,
-            embarked = embarked
-        )
-
-        return render_template(
-            "index.html",
-            prediction = prediction,
-            form = form
-        )
+        prediction = predictor.predict(passengerData)
 
     return render_template(
         "index.html",
-        form=form
+        form = form,
+        prediction = prediction
     )
-
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8888, debug=True)

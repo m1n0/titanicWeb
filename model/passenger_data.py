@@ -5,18 +5,16 @@ class PassengerData(object):
         title: str,
         age: float,
         Pclass: int,
-        cabin: int,
+        ticket_strategy: int,
         SibSp: int,
         ParCh: int,
-        fare: float,
         embarked: str
     ):
         self.sex = sex
         self.title = title
         self.age = age
         self.Pclass = Pclass
-        self.cabin = cabin
+        self.ticket_strategy = ticket_strategy
         self.SibSp = SibSp
         self.ParCh = ParCh
-        self.fare = fare
         self.embarked = embarked

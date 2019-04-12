@@ -23,8 +23,32 @@ class Predictor(object):
         Pclass = passenger_data.Pclass
         title = passenger_data.title
 
+        # Set up Fare value based on ticket buying strategy (values are hardcoded here and come from data exploration).
+        s = passenger_data.ticket_strategy
+        if Pclass == 1:
+            if s == 0:
+                fare = 30
+            elif s == 1:
+                fare = 84
+            else:
+                fare = 428
+        if Pclass == 2:
+            if s == 0:
+                fare = 13
+            elif s == 1:
+                fare = 20
+            else:
+                fare = 53
+        if Pclass == 3:
+            if s == 0:
+                fare = 8
+            elif s == 1:
+                fare = 14
+            else:
+                fare = 55
+
         x = {
-            "Fare": passenger_data.fare,
+            "Fare": fare,
             "AgeCategory_Infant": int(age <= 5),
             "AgeCategory_Child": int(age > 5 and age <= 12),
             "AgeCategory_Teenager": int(age > 12 and age <= 18),

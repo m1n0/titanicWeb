@@ -46,17 +46,20 @@ class TitanicForm(Form):
             ("2", "Second Class"),
             ("3", "Third Class")
         ],
+        default = "2",
         validators = [
             validators.InputRequired()
         ]
     )
 
-    cabin = SelectField(
-        "Has private cabin or not:",
+    ticket_strategy = SelectField(
+        "How would you buy tickets?",
         choices = [
-            ("1", "Yes"),
-            ("0", "No")
+            ("0", "As cheap as possible"),
+            ("1", "Something decent, average within ticket class"),
+            ("2", "Best possible cabin and deck")
         ],
+        default = "1",
         validators = [
             validators.InputRequired()
         ]
@@ -84,20 +87,6 @@ class TitanicForm(Form):
                 min = 0,
                 max = 9,
                 message = "Number must be between 0 and 9"
-            )
-        ]
-    )
-
-    fare = DecimalField(
-        "Passenger Fare ($):",
-        default = 33,
-        places = 1,
-        validators = [
-            validators.InputRequired(),
-            validators.NumberRange(
-                min = 0,
-                max = 512,
-                message = "Fare must be between 0 and 512"
             )
         ]
     )

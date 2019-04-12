@@ -4,13 +4,12 @@ class PassengerDataBuilder(object):
     @staticmethod
     def build_from_form_data(form_data: list) -> PassengerData:
         return PassengerData(
-            int(form_data["sex"]),
-            form_data["title"],
-            float(form_data["age"]),
-            int(form_data["Pclass"]),
-            int(form_data["Pclass"]),
-            int(form_data["SibSp"]),
-            int(form_data["ParCh"]),
-            float(form_data["fare"]),
-            form_data["embarked"]
+            sex = int(form_data["sex"]),
+            title = form_data["title"],
+            age = float(form_data["age"]),
+            Pclass = int(form_data["Pclass"]),
+            ticket_strategy = int(form_data["ticket_strategy"]),
+            SibSp = int(form_data["SibSp"]),
+            ParCh = int(form_data["ParCh"]),
+            embarked = form_data["embarked"]
         )

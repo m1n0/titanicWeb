@@ -14,9 +14,7 @@ def home():
 
     if request.method == "POST" and form.validate():
         passengerData = PassengerDataBuilder.build_from_form_data(request.form)
-        # TODO: Get Predictor with DI
-        predictor = Predictor()
-        prediction = predictor.predict(passengerData)
+        prediction = Predictor.predict(passengerData)
 
     return render_template(
         "index.html",
